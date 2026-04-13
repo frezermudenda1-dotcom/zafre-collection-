@@ -12,7 +12,12 @@
 
 <h2 id="total"></h2>
 
-<button onclick="checkout()">Checkout</button>
+<h3>Enter your details:</h3>
+
+<input id="name" placeholder="Your Name"><br><br>
+<input id="phone" placeholder="Phone Number"><br><br>
+
+<button onclick="checkout()">Place Order</button>
 
 <script>
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
