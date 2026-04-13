@@ -83,9 +83,35 @@ function removeItem(name) {
 }
 
 function checkout() {
-  alert("Order placed successfully!");
+  let name = document.getElementById("name").value;
+  let phone = document.getElementById("phone").value;
+
+  if (!name || !phone) {
+    alert("Please fill in all details");
+    return;
+  }
+
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  let message = "New Order:\n";
+  let total = 0;
+
+  cart.forEach(item => {
+    message += item.name + " - K" + item.price + "\n";
+    total += item.price;
+  });
+
+  message += "\nTotal: K" + total;
+  message += "\n\nCustomer: " + name;
+  message += "\nPhone: " + phone;
+
+  let whatsappNumber = "26097XXXXXXX"; // 🔥 PUT YOUR NUMBER HERE
+
+  let url = "https://wa.me/" + whatsappNumber + "?text=" + encodeURIComponent(message);
+
+  window.open(url, "_blank");
+
   localStorage.removeItem("cart");
-  window.location.href = "index.html";
 }
 </script>
 
