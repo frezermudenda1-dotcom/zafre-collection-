@@ -16,14 +16,15 @@ header {
     display: flex;
     justify-content: center;
     gap: 20px;
-    padding: 20px;
+    padding: 40px;
+    flex-wrap: wrap;
 }
 
 .product {
     background: white;
     padding: 10px;
     border-radius: 10px;
-    width: 120px;
+    width: 160px;
     text-align: center;
 }
 
