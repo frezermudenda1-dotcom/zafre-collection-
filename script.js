@@ -1,15 +1,14 @@
 let count = 0;
 
-function addToCart() {
-    count++;
-    document.getElementById("cart-count").innerText = count;
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-    let popup = document.getElementById("popup");
-    popup.classList.add("show");
+function addToCart(name, price) {
+  cart.push({ name, price });
+  localStorage.setItem("cart", JSON.stringify(cart));
 
-    setTimeout(() => {
-        popup.classList.remove("show");
-    }, 1500);
+  document.getElementById("cart-count").textContent = cart.length;
+
+  showPopup();
 }
 function goToCart() {
   window.location.href = "cart.html";
