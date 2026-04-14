@@ -1,15 +1,103 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ZAFRE</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Zafre Collection</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      margin: 0;
+      background: #f2f2f2;
+    }
+
+    header {
+      background: black;
+      color: white;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #cartBtn {
+      background: white;
+      color: black;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+
+    .products {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .product {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      width: 150px;
+      text-align: center;
+    }
+
+    img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+    }
+
+    button {
+      background: black;
+      color: white;
+      border: none;
+      padding: 8px;
+      margin-top: 10px;
+      width: 100%;
+    }
+
+    /* CART PANEL */
+    #cartPanel {
+      position: fixed;
+      top: 0;
+      right: -300px;
+      width: 300px;
+      height: 100%;
+      background: white;
+      box-shadow: -2px 0 10px rgba(0,0,0,0.2);
+      transition: 0.3s;
+      padding: 15px;
+    }
+
+    #cartPanel.active {
+      right: 0;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0;
+    }
+
+    .remove {
+      color: red;
+      cursor: pointer;
+    }
+
+    #total {
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+  </style>
 </head>
 
 <body>
 
-<h2>ZAFRE</h2>
-
-<button id="cartButton" onclick="openCart()">🛒 (0)</button>
+<header>
+  <h2>ZAFRE</h2>
+  <div id="cartBtn" onclick="toggleCart()">🛒 (<span id="count">0</span>)</div>
+</header>
 
 <div class="products">
 
@@ -36,7 +124,54 @@
 
 </div>
 
-<script src="script.js"></script>
+<!-- CART PANEL -->
+<div id="cartPanel">
+  <h3>Your Cart</h3>
+  <div id="cartItems"></div>
+  <p id="total">Total: K0</p>
+</div>
+
+<script>
+let cart = [];
+
+function toggleCart() {
+  document.getElementById("cartPanel").classList.toggle("active");
+}
+
+function addToCart(name, price) {
+  cart.push({name, price});
+  updateCart();
+}
+
+function removeItem(index) {
+  cart.splice(index, 1);
+  updateCart();
+}
+
+function updateCart() {
+  const cartItems = document.getElementById("cartItems");
+  const count = document.getElementById("count");
+  const total = document.getElementById("total");
+
+  cartItems.innerHTML = "";
+
+  let totalPrice = 0;
+
+  cart.forEach((item, index) => {
+    totalPrice += item.price;
+
+    cartItems.innerHTML += `
+      <div class="cart-item">
+        ${item.name} - K${item.price}
+        <span class="remove" onclick="removeItem(${index})">✖</span>
+      </div>
+    `;
+  });
+
+  count.innerText = cart.length;
+  total.innerText = "Total: K" + totalPrice;
+}
+</script>
 
 </body>
 </html>
