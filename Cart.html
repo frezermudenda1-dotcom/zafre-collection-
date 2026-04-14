@@ -1,138 +1,120 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Your Cart</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Cart</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+
+    .item {
+      background: white;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+    }
+
+    button {
+      padding: 8px;
+      margin-top: 5px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .remove {
+      background: red;
+      color: white;
+    }
+
+    .whatsapp {
+      background: green;
+      color: white;
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+    }
+
+    .checkout {
+      background: black;
+      color: white;
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+    }
+  </style>
 </head>
+
 <body>
 
-<h1>Your Cart 🛒</h1>
+<h1>Your Cart</h1>
 
-<ul id="cart-items"></ul>
-  <button onclick="orderWhatsApp()" style="background: green; color: white; padding: 12px; width: 100%; border: none;">
-  Order via WhatsApp
-  </button>
+<div id="cart-items"></div>
 
-<h2 id="total"></h2>
+<h2 id="total">Total: K0</h2>
 
-<h3>Enter your details:</h3>
-
-<input id="name" placeholder="Your Name"><br><br>
-<input id="phone" placeholder="Phone Number"><br><br>
-
-<button onclick="goToCheckout()">Checkout</button>
+<button class="whatsapp" onclick="orderWhatsApp()">Order via WhatsApp</button>
+<button class="checkout" onclick="goToCheckout()">Checkout</button>
 
 <script>
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let container = document.getElementById("cart-items");
 
-let cartList = document.getElementById("cart-items");
 let total = 0;
 
-// Group items by name
-let grouped = {};
+cart.forEach((item, index) => {
+  total += item.price;
 
-cart.forEach(item => {
-  if (!grouped[item.name]) {
-    grouped[item.name] = { price: item.price, qty: 1 };
-  } else {
-    grouped[item.name].qty++;
-  }
-});
+  let div = document.createElement("div");
+  div.classList.add("item");
 
-// Display items
-for (let name in grouped) {
-  let item = grouped[name];
-
-  let li = document.createElement("li");
-
-  li.innerHTML = `
-    ${name} - K${item.price} 
-    <button onclick="decrease('${name}')">➖</button>
-    ${item.qty}
-    <button onclick="increase('${name}')">➕</button>
-    <button onclick="removeItem('${name}')">❌</button>
+  div.innerHTML = `
+    <p>${item.name} - K${item.price}</p>
+    <button class="remove" onclick="removeItem(${index})">Remove</button>
   `;
 
-  cartList.appendChild(li);
+  container.appendChild(div);
+});
 
-  total += item.price * item.qty;
-}
+document.getElementById("total").innerText = "Total: K" + total;
 
-document.getElementById("total").textContent = "Total: K" + total;
-
-// FUNCTIONS
-function saveCart() {
+function removeItem(index) {
+  cart.splice(index, 1);
   localStorage.setItem("cart", JSON.stringify(cart));
   location.reload();
-}
-
-function increase(name) {
-  let item = cart.find(i => i.name === name);
-  cart.push(item);
-  saveCart();
-}
-
-function decrease(name) {
-  let index = cart.findIndex(i => i.name === name);
-  if (index !== -1) {
-    cart.splice(index, 1);
-  }
-  saveCart();
-}
-
-function removeItem(name) {
-  cart = cart.filter(i => i.name !== name);
-  saveCart();
 }
 
 function goToCheckout() {
   window.location.href = "checkout.html";
 }
 
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+function orderWhatsApp() {
+  if (cart.length === 0) {
+    alert("Cart is empty");
+    return;
+  }
 
-  let message = "New Order:\n";
+  let message = "🛍 ZAFRE COLLECTION ORDER\n\n";
   let total = 0;
 
-  cart.forEach(item => {
-    message += item.name + " - K" + item.price + "\n";
+  cart.forEach((item, i) => {
+    message += (i+1) + ". " + item.name + " - K" + item.price + "\n";
     total += item.price;
   });
 
   message += "\nTotal: K" + total;
-  message += "\n\nCustomer: " + name;
-  message += "\nPhone: " + phone;
+  message += "\nName: ";
+  message += "\nLocation: ";
 
-  let whatsappNumber = "260772503680"; // 🔥 PUT YOUR NUMBER HERE
+  let phone = "260772503680";
 
-  let url = "https://wa.me/" + whatsappNumber + "?text=" + encodeURIComponent(message);
+  let url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
 
   window.open(url, "_blank");
-
-  localStorage.removeItem("cart");
 }
-  function orderWhatsApp() {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-  if (cart.length === 0) {
-    alert("Your cart is empty");
-    return;
-  }
-
-  let message = "Hello, I want to order:\n\n";
-
-  cart.forEach((item, index) => {
-    message += (index + 1) + ". " + item.name + "\n";
-  });
-
-  message += "\nPlease confirm availability. Thanks!";
-
-  let phoneNumber = "260772503680"; // <-- PUT YOUR NUMBER HERE
-
-  let url = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(message);
-
-  window.open(url, "_blank");
-  }
 </script>
 
 </body>
