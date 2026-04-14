@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
   <title>ZAFRE STORE</title>
@@ -15,6 +15,13 @@
       color: white;
       padding: 15px;
       text-align: center;
+      font-size: 20px;
+      letter-spacing: 2px;
+    }
+
+    .logo {
+      font-weight: bold;
+      font-size: 24px;
     }
 
     .products {
@@ -59,7 +66,7 @@
     }
 
     #cartItems {
-      max-height: 150px;
+      max-height: 120px;
       overflow-y: auto;
     }
 
@@ -74,7 +81,7 @@
       cursor: pointer;
     }
 
-    input {
+    input, select {
       width: 95%;
       padding: 8px;
       margin-top: 5px;
@@ -85,7 +92,7 @@
 <body>
 
 <header>
-  <h2>ZAFRE STORE</h2>
+  <div class="logo">ZAFRE</div>
 </header>
 
 <div class="products">
@@ -121,6 +128,14 @@
   <input id="name" placeholder="Your Name">
   <input id="phone" placeholder="Phone Number">
   <input id="address" placeholder="Delivery Address">
+
+  <!-- PAYMENT OPTIONS -->
+  <select id="payment">
+    <option value="">Select Payment Method</option>
+    <option>MTN Mobile Money</option>
+    <option>Airtel Money</option>
+    <option>Cash on Delivery</option>
+  </select>
 
   <button onclick="orderWhatsApp()">Order via WhatsApp</button>
 </div>
@@ -163,13 +178,15 @@ function orderWhatsApp() {
   const name = document.getElementById("name").value;
   const phone = document.getElementById("phone").value;
   const address = document.getElementById("address").value;
+  const payment = document.getElementById("payment").value;
 
-  if (!name || !phone || !address) {
+  if (!name || !phone || !address || !payment) {
     alert("Fill all details");
     return;
   }
 
-  let message = "New Order:%0A";
+  let message = "🛍️ ZAFRE ORDER:%0A";
+
   cart.forEach(item => {
     message += item.name + " - K" + item.price + "%0A";
   });
@@ -178,10 +195,11 @@ function orderWhatsApp() {
   message += "%0AName: " + name;
   message += "%0APhone: " + phone;
   message += "%0AAddress: " + address;
+  message += "%0APayment: " + payment;
 
-  window.open("https://wa.me/260772503680?text=" + message);
+  window.open("https://wa.me/260XXXXXXXXX?text=" + message);
 }
 </script>
 
 </body>
-</html>    
+</html>     
