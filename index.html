@@ -1,104 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Zafre Collection</title>
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f8f8f8;
-      margin: 0;
-    }
-
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px;
-      background: white;
-    }
-
-    .cart {
-      position: relative;
-      cursor: pointer;
-    }
-
-    .cart span {
-      position: absolute;
-      top: -8px;
-      right: -10px;
-      background: red;
-      color: white;
-      border-radius: 50%;
-      padding: 3px 6px;
-      font-size: 12px;
-    }
-
-    .products {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      padding: 20px;
-    }
-
-    .product {
-      background: white;
-      border-radius: 15px;
-      padding: 15px;
-      width: 160px;
-      text-align: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      transition: 0.3s;
-    }
-
-    .product:hover {
-      transform: translateY(-5px);
-    }
-
-    .product img {
-      width: 100%;
-      border-radius: 10px;
-    }
-
-    button {
-      background: black;
-      color: white;
-      border: none;
-      padding: 10px;
-      width: 100%;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      opacity: 0.8;
-    }
-  </style>
+  <title>ZAFRE</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="header">
-  <h2>ZAFRE</h2>
+<h2>ZAFRE</h2>
 
-  <div class="cart" onclick="goToCart()">
-    🛒
-    <span id="cart-count">0</span>
-  </div>
-</div>
+<button id="cartButton" onclick="openCart()">🛒 (0)</button>
 
 <div class="products">
-
-  <div class="product">
-    <img src="image(2).jpeg">
-    <h3>Street Cap</h3>
-    <p>K150</p>
-    <button onclick="addToCart('Street Cap', 150)">Add to Cart</button>
-  </div>
-
-  <div class="products">
 
   <div class="product">
     <img src="images (2).jpeg">
@@ -121,28 +34,9 @@
     <button onclick="addToCart('Black Hoodie',350)">Add to Cart</button>
   </div>
 
-  </div>
+</div>
 
-<script>
-function addToCart(name, price) {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  cart.push({ name, price });
-  localStorage.setItem("cart", JSON.stringify(cart));
-  updateCartCount();
-  alert("Added to cart");
-}
-
-function updateCartCount() {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  document.getElementById("cart-count").innerText = cart.length;
-}
-
-function goToCart() {
-  window.location.href = "cart.html";
-}
-
-updateCartCount();
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
