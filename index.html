@@ -1,27 +1,38 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <title>ZAFRE STORE</title>
 
   <style>
     body {
-      font-family: Arial;
+      font-family: 'Segoe UI', sans-serif;
       margin: 0;
       background: #f5f5f5;
     }
 
     header {
-      background: black;
+      background: linear-gradient(90deg, black, #222);
       color: white;
-      padding: 15px;
+      padding: 25px;
       text-align: center;
-      font-size: 20px;
-      letter-spacing: 2px;
+      border-bottom: 2px solid #444;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
     }
 
     .logo {
-      font-weight: bold;
-      font-size: 24px;
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      font-family: 'Arial Black', sans-serif;
+    }
+
+    .logo span {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 5px;
+      color: #aaa;
+      margin-top: 5px;
     }
 
     .products {
@@ -35,25 +46,28 @@
     .card {
       background: white;
       padding: 15px;
-      border-radius: 10px;
-      width: 160px;
+      border-radius: 12px;
+      width: 170px;
       text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
 
     img {
       width: 100%;
-      height: 120px;
+      height: 130px;
       object-fit: cover;
+      border-radius: 8px;
     }
 
     button {
       background: black;
       color: white;
       border: none;
-      padding: 8px;
+      padding: 10px;
       width: 100%;
       margin-top: 10px;
-      border-radius: 5px;
+      border-radius: 6px;
+      font-weight: bold;
     }
 
     #cartBox {
@@ -74,6 +88,7 @@
       display: flex;
       justify-content: space-between;
       margin: 5px 0;
+      font-size: 14px;
     }
 
     .remove {
@@ -85,6 +100,8 @@
       width: 95%;
       padding: 8px;
       margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
     }
   </style>
 </head>
@@ -92,7 +109,10 @@
 <body>
 
 <header>
-  <div class="logo">ZAFRE</div>
+  <div class="logo">
+    ZAFRE
+    <span>COLLECTION</span>
+  </div>
 </header>
 
 <div class="products">
@@ -129,7 +149,6 @@
   <input id="phone" placeholder="Phone Number">
   <input id="address" placeholder="Delivery Address">
 
-  <!-- PAYMENT OPTIONS -->
   <select id="payment">
     <option value="">Select Payment Method</option>
     <option>MTN Mobile Money</option>
@@ -202,4 +221,4 @@ function orderWhatsApp() {
 </script>
 
 </body>
-</html>     
+</html>
