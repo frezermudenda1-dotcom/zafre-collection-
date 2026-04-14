@@ -50,7 +50,23 @@
 <body>
 
 <header>
-    <h1 style="text-align:center; letter-spacing:2px;">ZAFRE COLLECTION</h1>
+    <div style="display:flex; justify-content:space-between; align-items:center; padding:10px;">
+  <h1 style="letter-spacing:2px;">ZAFRE</h1>
+
+  <div onclick="goToCart()" style="cursor:pointer; position:relative;">
+    🛒
+    <span id="cart-count" style="
+      position:absolute;
+      top:-8px;
+      right:-10px;
+      background:red;
+      color:white;
+      border-radius:50%;
+      padding:3px 6px;
+      font-size:12px;
+    ">0</span>
+  </div>
+    </div>
     <div class="cart" onclick="goToCart()">🛒 <span id="cart-count">0</span></div>
 </header>
 
@@ -79,6 +95,16 @@
 
 </section>
 <div id="popup" class="popup">Added to cart ✅</div>
+    function updateCartCount() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  document.getElementById("cart-count").innerText = cart.length;
+}
+
+function goToCart() {
+  window.location.href = "cart.html";
+}
+
+updateCartCount();
 <script src="script.js"></script>
 
 </body>
